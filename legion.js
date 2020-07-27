@@ -56,7 +56,7 @@ function shuffleCards() {
 function generateCardHTML(cardSource) {
 	// Returns HTML for displaying a single card
 	var html = "<div class=\"" + W3_CSS_CARD + "\"><img src=\"" +
-		cardSource + "\" class=\"w3-image\" alt=\"card\"/></div>";
+		cardSource + "\" style=\"width:100%\" alt=\"card\"/></div>";
 	return html;
 }
 
