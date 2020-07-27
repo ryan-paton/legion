@@ -25,29 +25,54 @@ var conditionImageSource = ["card_images/condition_clear.png",
 	"card_images/condition_defenses.png",
 	"card_images/condition_war_weary.png"];
 
-function shuffleDeck(array) {
-	// Shuffle deck using Fisher-Yates algorithm TODO: fix algorith, taken from incorrect source
+function shuffleDeck(deck) {
+	// Shuffle deck using Fisher-Yates algorithm
 	
-	var current = array.length;
-	var val, i;
+	var currentIndex = deck.length;
+	var tempValue, i;
 	
-	while (current > 0) {
+	while (currentIndex > 1) {
 		// Pick a random unshuffled value
-		i = Math.floor(Math.random() * current)
-		current--;
+		i = Math.floor(Math.random() * currentIndex)
+		currentIndex--;
 		
 		// Swap the value with the current one
 		// starting from the end
-		val = array[current];
-		array[current] = array[i];
-		array[i] = val;
+		tempValue = deck[currentIndex];
+		deck[currentIndex] = deck[i];
+		deck[i] = tempValue;
 	}
-	
-	return array;
 }
 
 function shuffleCards() {
 	// Shuffles the battle cards and displays them in a 3 by 3 grid
-	
+	shuffleDeck(deploymentImageSource);
+	shuffleDeck(objectiveImageSource);
+	shuffleDeck(conditionImageSource);
 }
 
+function generateCardHTML(cardSource) {
+	// Returns HTML for displaying a single card
+	var html = "<div class=\"w3-card-4\"><img src=\"" +
+		cardSource + "\" alt=\"card\"/></div>";
+	return html;
+}
+
+function generateDeckHTML(deck) {
+	// Returns HTML for displaying the top three cards from the deck
+	var html = generateCardHTML(deck[0]) + generateCardHTML(deck[1]) +
+		generateCardHTML(deck[2]);
+	return html;
+}
+
+function displayBattleCards() {
+	// Displays the top three battle cards from each deck ready for selection
+	document.getElementById("deployments").innerHTML = generateDeckHTML(deploymentImageSource);
+	document.getElementById("objectives").innerHTML = generateDeckHTML(objectiveImageSource);
+	document.getElementById("conditions").innerHTML = generateDeckHTML(conditionImageSource);
+}
+
+function setupCards() {
+	shuffleCards();
+	displayBattleCards();
+}

@@ -6,12 +6,21 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		<title>Battle Card app for Star Wars: Legion</title>
+		
+		<script src="legion.js"></script>
 	</head>
 	
 	<body class="w3-center">
 		<h1>Battle Card Setup app for Star Wars: Legion skirmish battles</h1>
-		<div id="display-area">
-			<button type="button">Shuffle Cards</button>
-		</div>
+		<button onclick="setupCards()" type="button">Setup Cards</button>
+		
+		<!-- Display area for deployment cards -->
+		<div class="w3-third" id="deployments"></div>
+		
+		<!-- Display area for objective cards -->
+		<div class="w3-third" id="objectives"></div>
+		
+		<!-- Display area for condition cards -->
+		<div class="w3-third" id="conditions"></div>
 	</body>
 </html>
