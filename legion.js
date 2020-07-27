@@ -10,7 +10,9 @@ Ryan Paton
 
 // TODO: may need to preload images
 
-const W3_CSS_CARD = "w3-card-4 w3-round-large";
+const DIV_THIRD = "<div class=\"w3-third\">";
+const DIV_CARD = "<div class=\"w3-card-4 w3-round-large\">";
+const IMAGE_STYLE = "style=\"width:100%;max-width:300px\"";
 
 var deploymentImageSource = ["card_images/deployment_battle_lines.png",
 	"card_images/deployment_faceoff.png",
@@ -55,8 +57,9 @@ function shuffleCards() {
 
 function generateCardHTML(cardSource) {
 	// Returns HTML for displaying a single card
-	var html = "<div class=\"" + W3_CSS_CARD + "\"><img src=\"" +
-		cardSource + "\" style=\"width:100%\" alt=\"card\"/></div>";
+	var html = DIV_THIRD + DIV_CARD + "<img src=\"" +
+		cardSource + "\" " + IMAGE_STYLE + " alt=\"card\"/>" +
+		"</div></div>";
 	return html;
 }
 
