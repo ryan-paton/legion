@@ -10,7 +10,7 @@ Ryan Paton
 
 // TODO: may need to preload images
 
-const DIV_THIRD = "<div class=\"w3-third\">";
+const DIV_THIRD = "<div class=\"w3-col s4 m4 l4\">";
 const DIV_CARD = "<div class=\"w3-card-4 w3-round-large\">";
 const IMAGE_STYLE = "style=\"width:100%;max-width:300px\"";
 
