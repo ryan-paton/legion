@@ -50,9 +50,9 @@ function shuffleDeck(deck) {
 
 function shuffleCards() {
 	// Shuffles the battle cards and displays them in a 3 by 3 grid
-	shuffleDeck(deploymentImageSource);
-	shuffleDeck(objectiveImageSource);
-	shuffleDeck(conditionImageSource);
+	shuffleDeck(deploymentDeck);
+	shuffleDeck(objectiveDeck);
+	shuffleDeck(conditionDeck);
 }
 
 function generateCardHTML(card) {
