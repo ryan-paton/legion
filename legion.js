@@ -10,24 +10,24 @@ Ryan Paton
 
 // TODO: may need to preload images
 
-const DIV_THIRD = "<div class=\"w3-col s4 m4 l4\">";
-const DIV_CARD = "<div class=\"w3-card-4 w3-round-large\">";
-const IMAGE_STYLE = "style=\"width:100%;max-width:300px\"";
+const DIV_THIRD = "w3-col s4 m4 l4";
+const CARD_IMAGE = "w3-round-large";
+const IMAGE_STYLE = "width:100%;max-width:300px";
 
-var deploymentImageSource = ["card_images/deployment_battle_lines.png",
-	"card_images/deployment_faceoff.png",
-	"card_images/deployment_flanking.png",
-	"card_images/deployment_meeting.png"];
+var deploymentDeck = [{name:"Battle Lines", source:"card_images/deployment_battle_lines.png"},
+	{name:"Faceoff", source:"card_images/deployment_faceoff.png"},
+	{name:"Flanking Positions", source:"card_images/deployment_flanking.png"},
+	{name:"Meeting Engagement", source:"card_images/deployment_meeting.png"}];
 
-var objectiveImageSource = ["card_images/objective_breach.png",
-	"card_images/objective_control.png",
-	"card_images/objective_elimination.png",
-	"card_images/objective_positions.png"];
+var objectiveDeck = [{name:"Breach", source:"card_images/objective_breach.png"},
+	{name:"Control", source:"card_images/objective_control.png"},
+	{name:"Elimination", source:"card_images/objective_elimination.png"},
+	{name:"Pivotal Positions", source:"card_images/objective_positions.png"}];
 
-var conditionImageSource = ["card_images/condition_clear.png",
-	"card_images/condition_dawn.png",
-	"card_images/condition_defenses.png",
-	"card_images/condition_war_weary.png"];
+var conditionDeck = [{name:"Clear Conditions", source:"card_images/condition_clear.png"},
+	{name:"Dawn", source:"card_images/condition_dawn.png"},
+	{name:"Improvised Defenses", source:"card_images/condition_defenses.png"},
+	{name:"War Weary", source:"card_images/condition_war_weary.png"}];
 
 function shuffleDeck(deck) {
 	// Shuffle deck using Fisher-Yates algorithm
@@ -55,29 +55,53 @@ function shuffleCards() {
 	shuffleDeck(conditionImageSource);
 }
 
-function generateCardHTML(cardSource) {
-	// Returns HTML for displaying a single card
-	var html = DIV_THIRD + DIV_CARD + "<img src=\"" +
-		cardSource + "\" " + IMAGE_STYLE + " alt=\"card\"/>" +
-		"</div></div>";
-	return html;
+function generateCardHTML(card) {
+	// Generates HTML for displaying a single card
+	var cardDiv = document.createElement("div");
+	var cardImage = document.createElement("img");
+	
+	cardDiv.class = DIV_THIRD;
+	cardImage.class = CARD_IMAGE;
+	cardImage.style = IMAGE_STYLE;
+	cardImage.src = card.source;
+	cardImage.alt = card.name;
+	
+	cardDiv.appendChild(cardImage);
+	card.html = cardDiv;
 }
 
 function generateDeckHTML(deck) {
-	// Returns HTML for displaying the top three cards from the deck
-	var html = generateCardHTML(deck[0]) + generateCardHTML(deck[1]) +
-		generateCardHTML(deck[2]);
-	return html;
+	// Generates HTML for displaying the deck
+	var i;
+	for (i = 0; i < deck.length; i++) {
+		generateCardHTML(deck[i]);
+	}
+}
+
+function displayDeck(displayElement, deck) {
+	// Displays the top three battle cards ready for selection
+	var i, numCards = 3;
+	displayElement.innerHTML = "";
+	
+	for (i = 0; i < numCards; i++) {
+		displayElement.appendChild(deck[i].html);
+	}
 }
 
 function displayBattleCards() {
 	// Displays the top three battle cards from each deck ready for selection
-	document.getElementById("deployments").innerHTML = generateDeckHTML(deploymentImageSource);
-	document.getElementById("objectives").innerHTML = generateDeckHTML(objectiveImageSource);
-	document.getElementById("conditions").innerHTML = generateDeckHTML(conditionImageSource);
+	displayDeck(document.getElementById("deployments"), deploymentDeck);
+	displayDeck(document.getElementById("objectives"), objectiveDeck);
+	displayDeck(document.getElementById("conditions"), conditionDeck);
 }
 
 function setupCards() {
 	shuffleCards();
 	displayBattleCards();
+}
+
+function init() {
+	generateDeckHTML(deploymentDeck);
+	generateDeckHTML(objectiveDeck);
+	generateDeckHTML(conditionDeck);
 }
