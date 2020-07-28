@@ -105,3 +105,6 @@ function init() {
 	generateDeckHTML(objectiveDeck);
 	generateDeckHTML(conditionDeck);
 }
+
+// Initialize html for the cards
+init();
