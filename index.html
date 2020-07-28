@@ -12,7 +12,15 @@
 	
 	<body class="w3-center">
 		<h1>Battle Card Setup app for Star Wars: Legion skirmish battles</h1>
-		<button onclick="setupCards()" type="button">Setup Cards</button>
+		
+		<!-- Display area for messages -->
+		<div class="w3-panel w3-blue w3-round-large w3-display-container"
+			style="display:none">
+			<span onclick="this.parentElement.style.display='none'"
+				class="w3-button w3-round-large w3-display-topright w3-hover-red">
+				&times;</span>
+			<p id="messagePanel"></p>
+		</div>
 		
 		<!-- Display area for deployment cards -->
 		<div class="w3-row-padding w3-margin-top" id="deployments"></div>
@@ -22,5 +30,10 @@
 		
 		<!-- Display area for condition cards -->
 		<div class="w3-row-padding w3-margin-top" id="conditions"></div>
+		
+		<!-- Area for controls -->
+		
+		
+		<button onclick="setupCards()" type="button">Setup Cards</button>
 	</body>
 </html>
