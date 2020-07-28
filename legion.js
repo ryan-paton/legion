@@ -60,8 +60,8 @@ function generateCardHTML(card) {
 	var cardDiv = document.createElement("div");
 	var cardImage = document.createElement("img");
 	
-	cardDiv.class = DIV_THIRD;
-	cardImage.class = CARD_IMAGE;
+	cardDiv.className = DIV_THIRD;
+	cardImage.className = CARD_IMAGE;
 	cardImage.style = IMAGE_STYLE;
 	cardImage.src = card.source;
 	cardImage.alt = card.name;
