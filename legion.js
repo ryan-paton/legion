@@ -9,10 +9,22 @@ Ryan Paton
 */
 
 // TODO: may need to preload images
+// TODO: fix cards remaining blurred
 
+// Message constants
+const MSG_BLUE_TURN = "Blue players turn, eliminate a card or pass";
+const MSG_RED_TURN = "Red players turn, eliminate a card or pass";
+
+// Card style constants
 const DIV_THIRD = "w3-col s4 m4 l4";
 const CARD_IMAGE = "w3-round-large";
 const IMAGE_STYLE = "width:100%;max-width:300px";
+
+// Players
+const P_BLUE = "Blue Player";
+const P_RED = "Red Player";
+
+var setupStatus = {currentPlayer:P_BLUE, blueTurns:0, redTurns:0};
 
 var deploymentDeck = [{name:"Battle Lines", source:"card_images/deployment_battle_lines.png"},
 	{name:"Faceoff", source:"card_images/deployment_faceoff.png"},
@@ -28,6 +40,47 @@ var conditionDeck = [{name:"Clear Conditions", source:"card_images/condition_cle
 	{name:"Dawn", source:"card_images/condition_dawn.png"},
 	{name:"Improvised Defenses", source:"card_images/condition_defenses.png"},
 	{name:"War Weary", source:"card_images/condition_war_weary.png"}];
+	
+function resetSetupStatus() {
+	setupStatus.currentPlayer = P_BLUE;
+	setupStatus.blueTurns = 0;
+	setupStatus.redTurns = 0;
+}
+
+function changePlayer() {
+	// Changes current player 
+	if (setupStatus.currentPlayer == P_BLUE) {
+		setupStatus.currentPlayer = P_RED;
+		setupStatus.blueTurns += 1;
+	} else {
+		setupStatus.currentPlayer = P_BLUE;
+		setupStatus.redTurns += 1;
+	}
+}
+
+function displayMessage(message) {
+	// Displays a message panel
+	var messagePanel = document.getElementById("messagePanel");
+	messagePanel.innerHTML = message;
+	messagePanel.parentNode.style.display = "block";
+}
+
+function cardClicked(cardElement) {
+	// Handles a card click
+	// TODO: only allow eliminating the leftmost card
+	cardElement.className += " w3-opacity-max";
+	changePlayer();
+	if (setupStatus.redTurns < 2) {
+		if (setupStatus.currentPlayer == P_BLUE) {
+			displayMessage(MSG_BLUE_TURN);
+		} else {
+			displayMessage(MSG_RED_TURN);
+		}
+	}
+	//else {
+		// TODO: define battlefield
+	//}
+}
 
 function shuffleDeck(deck) {
 	// Shuffle deck using Fisher-Yates algorithm
@@ -65,6 +118,7 @@ function generateCardHTML(card) {
 	cardImage.style = IMAGE_STYLE;
 	cardImage.src = card.source;
 	cardImage.alt = card.name;
+	cardImage.onclick = function(){cardClicked(this)};
 	
 	cardDiv.appendChild(cardImage);
 	card.html = cardDiv;
@@ -96,8 +150,10 @@ function displayBattleCards() {
 }
 
 function setupCards() {
+	resetSetupStatus();
 	shuffleCards();
 	displayBattleCards();
+	displayMessage(MSG_BLUE_TURN);
 }
 
 function init() {
