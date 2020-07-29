@@ -11,7 +11,7 @@
 	</head>
 	
 	<body class="w3-center">
-		<h1>Battle Card Setup app for Star Wars: Legion skirmish battles</h1>
+		<h2>Battle Card Setup app for Star Wars: Legion skirmish battles</h2>
 		
 		<!-- Display area for messages -->
 		<div class="w3-panel w3-blue w3-round-large w3-display-container"
@@ -19,7 +19,17 @@
 			<span onclick="this.parentElement.style.display='none'"
 				class="w3-button w3-round-large w3-display-topright w3-hover-red">
 				&times;</span>
-			<h1 id="messagePanel"></h1>
+			<h2 id="messagePanel"></h2>
+		</div>
+		
+		<!-- Area for controls -->
+		<div class="w3-bar w3-container">
+			<button id="passButton" class="w3-button w3-blue-gray"
+				style="display:none" onclick="passClicked()">
+				Pass</button>
+		
+			<button class="w3-button w3-blue-gray" onclick="setupCards()">
+				Shuffle Cards</button>
 		</div>
 		
 		<!-- Display area for deployment cards -->
@@ -31,14 +41,5 @@
 		<!-- Display area for condition cards -->
 		<div class="w3-row-padding w3-margin-top" id="conditions"></div>
 		
-		<!-- Area for controls -->
-		<div>
-			<button class="w3-button w3-blue-gray" style="display:none"
-				onclick="">
-				Pass</button>
-		
-			<button class="w3-button w3-blue-gray" onclick="setupCards()">
-				Shuffle Cards</button>
-		</div>
 	</body>
 </html>

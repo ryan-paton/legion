@@ -16,7 +16,7 @@ const MSG_BLUE_TURN = "Blue players turn, eliminate a card or pass";
 const MSG_RED_TURN = "Red players turn, eliminate a card or pass";
 
 // Card style constants
-const DIV_THIRD = "w3-col s4 m4 l4";
+const DIV_THIRD = "w3-col s4 m4 l2";
 const CARD_IMAGE = "w3-round-large";
 const IMAGE_STYLE = "width:100%;max-width:300px";
 
@@ -47,6 +47,18 @@ function resetSetupStatus() {
 	setupStatus.redTurns = 0;
 }
 
+function resetCardOpacity() {
+	var decks = [deploymentDeck, objectiveDeck, conditionDeck];
+	var i, j;
+	
+	for (i = 0; i < decks.length; i++) {
+		var currentDeck = decks[i];
+		for (j = 0; j < currentDeck.length; j++) {
+			currentDeck[j].html.firstChild.className = CARD_IMAGE;
+		}
+	}
+}
+
 function changePlayer() {
 	// Changes current player 
 	if (setupStatus.currentPlayer == P_BLUE) {
@@ -55,6 +67,17 @@ function changePlayer() {
 	} else {
 		setupStatus.currentPlayer = P_BLUE;
 		setupStatus.redTurns += 1;
+	}
+	
+	if (setupStatus.redTurns < 2) {
+		if (setupStatus.currentPlayer == P_BLUE) {
+			displayMessage(MSG_BLUE_TURN);
+		} else {
+			displayMessage(MSG_RED_TURN);
+		}
+	}
+	else {
+		displayMessage("Battle cards are set");
 	}
 }
 
@@ -65,21 +88,45 @@ function displayMessage(message) {
 	messagePanel.parentNode.style.display = "block";
 }
 
-function cardClicked(cardElement) {
-	// Handles a card click
-	// TODO: only allow eliminating the leftmost card
-	cardElement.className += " w3-opacity-max";
-	changePlayer();
-	if (setupStatus.redTurns < 2) {
-		if (setupStatus.currentPlayer == P_BLUE) {
-			displayMessage(MSG_BLUE_TURN);
-		} else {
-			displayMessage(MSG_RED_TURN);
+function isValidCardChoice(cardElement) {
+	// Returns true if the selected card is a valid option
+	// i.e. is the leftmost non eliminated card and is not the rightmost card
+	// TODO: this may not work on older browsers, fix if neccessary
+	if (cardElement.classList.contains("w3-opacity-max")) {
+		return false;
+	}
+	
+	var cardDiv = cardElement.parentNode
+	var rowDiv = cardDiv.parentNode;
+	var index = Array.prototype.indexOf.call(rowDiv.children, cardDiv);
+	var result = true;
+	
+	// Check if card is the rightmost one
+	if (index == 2) {
+		return false
+	}
+	
+	// Check if card is the leftmost one
+	if (index != 0) {
+		var i = index - 1;
+		
+		while (i >= 0) {
+			if (!rowDiv.children[i].firstChild.classList.contains("w3-opacity-max")) {
+				result = false
+			}
+			i--;
 		}
 	}
-	//else {
-		// TODO: define battlefield
-	//}
+	return result;
+}
+
+function cardClicked(cardElement) {
+	// Handles a card click
+	
+	if (isValidCardChoice(cardElement) && (setupStatus.redTurns < 2)) {
+		cardElement.className += " w3-opacity-max";
+		changePlayer();
+	}
 }
 
 function shuffleDeck(deck) {
@@ -149,10 +196,21 @@ function displayBattleCards() {
 	displayDeck(document.getElementById("conditions"), conditionDeck);
 }
 
+function passClicked() {
+	// Handles the pass button being clicked
+	changePlayer();
+}
+
+function showPassButton() {
+	document.getElementById("passButton").style.display = "block";
+}
+
 function setupCards() {
 	resetSetupStatus();
+	resetCardOpacity();
 	shuffleCards();
 	displayBattleCards();
+	showPassButton();
 	displayMessage(MSG_BLUE_TURN);
 }
 
