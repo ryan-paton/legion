@@ -9,7 +9,6 @@ Ryan Paton
 */
 
 // TODO: may need to preload images
-// TODO: fix cards remaining blurred
 
 // Message constants
 const MSG_BLUE_TURN = "Blue players turn, eliminate a card or pass";
@@ -119,11 +118,19 @@ function updateBattleStatus() {
         }
     }
     else {
-        setupStatus.ready = false;
-        displayMessage("Battle cards are set");
-        hidePassButton();
-        displaySelectedBattleCards();
+        finishSetup();
     }
+}
+
+function finishSetup() {
+    // Once battle cards are selected, display and save them
+    var cards = listSelectedBattleCards();
+    
+    setupStatus.ready = false;
+    displayMessage("Battle cards are set");
+    hidePassButton();
+    displayCards(cards);
+    saveBattleCards(cards);
 }
 
 function cardClicked(cardElement) {
@@ -221,16 +228,24 @@ function displayBattleCards() {
     displayDeck(document.getElementById("conditions"), conditionDeck);
 }
 
-function displaySelectedBattleCards() {
-    
-    var battlefield = ["", "", ""];
-    
-    battlefield[0] = getLeftmostCard(deploymentDeck);
-    battlefield[1] = getLeftmostCard(objectiveDeck);
-    battlefield[2] = getLeftmostCard(conditionDeck);
-    
+function listSelectedBattleCards() {
+    //returns a list of the 3 selected battle cards
+    var cardList = ["", "", ""];
+    cardList[0] = getLeftmostCard(deploymentDeck);
+    cardList[1] = getLeftmostCard(objectiveDeck);
+    cardList[2] = getLeftmostCard(conditionDeck);
+    return cardList;
+}
+
+function saveBattleCards(cardList) {
+    setCardList(cardList);
+    saveCardList();
+}
+
+function displayCards(cardList) {
+    // Displays the three selected battle cards
     clearBattleCards();
-    displayDeck(document.getElementById("deployments"), battlefield);
+    displayDeck(document.getElementById("deployments"), cardList);
 }
 
 function clearBattleCards() {
@@ -266,7 +281,10 @@ function init() {
     generateDeckHTML(deploymentDeck);
     generateDeckHTML(objectiveDeck);
     generateDeckHTML(conditionDeck);
+    
+    var list = [deploymentDeck, objectiveDeck, conditionDeck];
+    initSaveHandler(list);
 }
 
-// Initialize html for the cards
-init();
+// Initialize the app
+window.addEventListener("load", init);
