@@ -23,6 +23,9 @@ const IMAGE_STYLE = "width:100%;max-width:300px";
 const P_BLUE = "Blue Player";
 const P_RED = "Red Player";
 
+// Colors
+const COLOR_TEAL = "w3-teal";
+
 var setupStatus = {currentPlayer:P_BLUE, redTurns:0, ready:true};
 
 var deploymentDeck = [{name:"Battle Lines", source:"card_images/deployment_battle_lines.png"},
@@ -79,12 +82,14 @@ function setMessageColor(color) {
     // sets the background color of the message panel
     var messagePanel = document.getElementById("messagePanel");
     
+    messagePanel.className = "w3-panel w3-round-large w3-display-container";
+    
     if (color == P_BLUE) {
-        messagePanel.style.backgroundColor = "blue";
+        messagePanel.classList.add("w3-blue");
     } else if (color == P_RED) {
-        messagePanel.style.backgroundColor = "red";
+        messagePanel.classList.add("w3-red");
     } else {
-        messagePanel.style.backgroundColor = color;
+        messagePanel.classList.add(color);
     }
 }
 
@@ -142,7 +147,7 @@ function finishSetup() {
     var cards = listSelectedBattleCards();
     
     setupStatus.ready = false;
-    setMessageColor(P_BLUE);
+    setMessageColor(COLOR_TEAL);
     displayMessage("Battle cards are set");
     hideButton("passButton");
     displayCards(cards);
@@ -280,7 +285,7 @@ function loadClicked() {
     // Handles the load button being clicked
     setupStatus.ready = false;
     displayCards(battleCardList);
-    setMessageColor(P_BLUE);
+    setMessageColor(COLOR_TEAL);
     displayMessage("Battle cards are set");
     hideButton("passButton");
 }
