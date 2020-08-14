@@ -41,6 +41,11 @@ function setCardList(listOfCards) {
     hasSaveData = true;
 }
 
+function clearCardList() {
+    localStorage.removeItem(CARD_SAVE_NAME);
+    hasSaveData = false;
+}
+
 function getCardByName(cardName) {
     // Returns the reference to a card with the name equal to the string cardName
     var card;

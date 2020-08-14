@@ -15,12 +15,12 @@
 		<h2>Battle Card Setup app for Star Wars: Legion skirmish battles</h2>
 		
 		<!-- Display area for messages -->
-		<div class="w3-panel w3-blue w3-round-large w3-display-container"
-			style="display:none">
+		<div class="w3-panel w3-round-large w3-display-container"
+			id="messagePanel" style="display:none">
 			<span onclick="this.parentElement.style.display='none'"
 				class="w3-button w3-round-large w3-display-topright w3-hover-red">
 				&times;</span>
-			<h2 id="messagePanel"></h2>
+			<h2 id="messageText"></h2>
 		</div>
 		
 		<!-- Area for controls -->
@@ -28,6 +28,14 @@
 			<button id="passButton" class="w3-button w3-blue-gray"
 				style="display:none" onclick="passClicked()">
 				Pass</button>
+            
+            <button id="loadButton" class="w3-button w3-blue-gray"
+                style="display:none" onclick="loadClicked()">
+                Load Last Setup</button>
+            
+            <button id="clearButton" class="w3-button w3-blue-gray"
+                style="display:none" onclick="clearClicked()">
+                Clear Last Setup</button>
 		
 			<button class="w3-button w3-blue-gray" onclick="setupCards()">
 				Shuffle Cards</button>

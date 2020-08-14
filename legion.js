@@ -70,9 +70,22 @@ function changePlayer() {
 
 function displayMessage(message) {
     // Displays a message panel
+    var messageText = document.getElementById("messageText");
+    messageText.innerHTML = message;
+    messageText.parentNode.style.display = "block";
+}
+
+function setMessageColor(color) {
+    // sets the background color of the message panel
     var messagePanel = document.getElementById("messagePanel");
-    messagePanel.innerHTML = message;
-    messagePanel.parentNode.style.display = "block";
+    
+    if (color == P_BLUE) {
+        messagePanel.style.backgroundColor = "blue";
+    } else if (color == P_RED) {
+        messagePanel.style.backgroundColor = "red";
+    } else {
+        messagePanel.style.backgroundColor = color;
+    }
 }
 
 function isValidCardChoice(cardElement) {
@@ -112,8 +125,10 @@ function updateBattleStatus() {
     // finished and updates the setup staus
     if (setupStatus.redTurns < 2) {
         if (setupStatus.currentPlayer == P_BLUE) {
+            setMessageColor(P_BLUE);
             displayMessage(MSG_BLUE_TURN);
         } else {
+            setMessageColor(P_RED);
             displayMessage(MSG_RED_TURN);
         }
     }
@@ -127,8 +142,9 @@ function finishSetup() {
     var cards = listSelectedBattleCards();
     
     setupStatus.ready = false;
+    setMessageColor(P_BLUE);
     displayMessage("Battle cards are set");
-    hidePassButton();
+    hideButton("passButton");
     displayCards(cards);
     saveBattleCards(cards);
 }
@@ -260,12 +276,30 @@ function passClicked() {
     updateBattleStatus();
 }
 
-function showPassButton() {
-    document.getElementById("passButton").style.display = "block";
+function loadClicked() {
+    // Handles the load button being clicked
+    setupStatus.ready = false;
+    displayCards(battleCardList);
+    setMessageColor(P_BLUE);
+    displayMessage("Battle cards are set");
+    hideButton("passButton");
 }
 
-function hidePassButton() {
-    document.getElementById("passButton").style.display = "none";
+function clearClicked() {
+    // Handles the clear button being clicked
+    clearCardList();
+    hideButton("clearButton");
+    hideButton("loadButton");
+}
+
+function hideButton(buttonName) {
+    // Hides a button with the id buttonName
+    document.getElementById(buttonName).style.display = "none";
+}
+
+function showButton(buttonName) {
+    // Unhides a button with the id buttonName
+    document.getElementById(buttonName).style.display = "block";
 }
 
 function setupCards() {
@@ -273,7 +307,12 @@ function setupCards() {
     resetCardOpacity();
     shuffleCards();
     displayBattleCards();
-    showPassButton();
+    showButton("passButton");
+    if (hasSaveData) {
+        showButton("loadButton");
+        showButton("clearButton");
+    }
+    setMessageColor(P_BLUE);
     displayMessage(MSG_BLUE_TURN);
 }
 
@@ -284,6 +323,10 @@ function init() {
     
     var list = [deploymentDeck, objectiveDeck, conditionDeck];
     initSaveHandler(list);
+    if (hasSaveData) {
+        showButton("loadButton");
+        showButton("clearButton");
+    }
 }
 
 // Initialize the app
