@@ -48,16 +48,21 @@ function clearCardList() {
 
 function getCardByName(cardName) {
     // Returns the reference to a card with the name equal to the string cardName
-    var card;
-    var deck, i, j;
+    var card, deck;
+    var i = 0;
+    var found = false;
     
-    for (i = 0; i < battleDeckList.length; i++) {
+    while ((!found) && i < battleDeckList.length) {
+        var j = 0;
         deck = battleDeckList[i];
-        for (j = 0; j < deck.length; j++) {
-            if (deck[i].name == cardName) {
+        while ((!found) && j < deck.length) {
+            if (deck[j].name == cardName) {
                 card = deck[i];
+                found = true;
             }
+            j++;
         }
+        i++;
     }
     return card;
 }
