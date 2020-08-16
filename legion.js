@@ -332,6 +332,8 @@ function init() {
         showButton("loadButton");
         showButton("clearButton");
     }
+    setMessageColor(COLOR_TEAL);
+    displayMessage("Click \"Shuffle Cards\" to begin");
 }
 
 // Initialize the app
