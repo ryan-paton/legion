@@ -15,7 +15,7 @@ const MSG_BLUE_TURN = "Blue players turn, eliminate a card or pass";
 const MSG_RED_TURN = "Red players turn, eliminate a card or pass";
 
 // Card style constants
-const DIV_THIRD = "w3-col s4 m4 l2";
+const DIV_THIRD = "w3-col s4 m4 l4";
 const CARD_IMAGE = "w3-round-large";
 const IMAGE_STYLE = "width:100%;max-width:300px";
 

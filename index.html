@@ -12,57 +12,65 @@
         <script src="settings.js"></script>
 	</head>
 	
-	<body>
-		<h2>Battle Card Setup app for Star Wars: Legion skirmish battles</h2>
+	<body class="w3-dark-gray">
+        <div class="w3-panel w3-blue-gray">
+            <h2 class="w3-content">
+                Battle Card Setup app for Star Wars: Legion skirmish battles</h2>
+        </div>
 		
-		<!-- Display area for messages -->
-		<div class="w3-panel w3-blue w3-round-large w3-display-container"
-			id="messagePanel" style="display:none">
-			<span onclick="this.parentElement.style.display='none'"
-				class="w3-button w3-round-large w3-display-topright w3-hover-red">
-				&times;</span>
-			<h2 id="messageText"></h2>
-		</div>
-		
-		<!-- Area for controls -->
-		<div class="w3-bar">
-            <button class="w3-bar-item w3-button w3-blue-gray"
-                onclick="setupCards()">Shuffle Cards</button>
+        <div class="w3-content">
+            <!-- Display area for messages -->
+            <div class="w3-panel w3-blue w3-round-large w3-display-container"
+                id="messagePanel" style="display:none">
+                <span onclick="this.parentElement.style.display='none'"
+                    class="w3-button w3-round-large w3-display-topright w3-hover-red">
+                    &times;</span>
+                <h2 id="messageText"></h2>
+            </div>
             
-			<button id="passButton" class="w3-bar-item w3-button w3-blue-gray"
-				style="display:none" onclick="passClicked()">
-				Pass</button>
+            <!-- Area for controls -->
+            <div class="w3-bar">
+                <button class="w3-bar-item w3-button w3-blue-gray"
+                    onclick="setupCards()">Shuffle Cards</button>
+                
+                <button id="passButton" class="w3-bar-item w3-button w3-blue-gray"
+                    style="display:none" onclick="passClicked()">
+                    Pass</button>
+                
+                <button id="loadButton" class="w3-bar-item w3-button w3-blue-gray"
+                    style="display:none" onclick="loadClicked()">
+                    Load Last Setup</button>
+                
+                <button id="clearButton" class="w3-bar-item w3-button w3-blue-gray"
+                    style="display:none" onclick="clearClicked()">
+                    Clear Last Setup</button>
             
-            <button id="loadButton" class="w3-bar-item w3-button w3-blue-gray"
-                style="display:none" onclick="loadClicked()">
-                Load Last Setup</button>
+                
+            </div>
             
-            <button id="clearButton" class="w3-bar-item w3-button w3-blue-gray"
-                style="display:none" onclick="clearClicked()">
-                Clear Last Setup</button>
-		
-			
-		</div>
-		
-		<!-- Display area for deployment cards -->
-		<div class="w3-row-padding w3-margin-top" id="deployments"></div>
-		
-		<!-- Display area for objective cards -->
-		<div class="w3-row-padding w3-margin-top" id="objectives"></div>
-		
-		<!-- Display area for condition cards -->
-		<div class="w3-row-padding w3-margin-top" id="conditions"></div>
-		
-        <!-- Area for settings -->
-        <div>
-            <p>Eliminate cards with single or double click</p>
-            <input class="w3-radio" type="radio" name="clickOption"
-                value="single" onclick="radioClicked(this.value)" checked>
-            <label>Single</label>
+            <!-- Card display area -->
+            <div>
+                <!-- Display area for deployment cards -->
+                <div class="w3-row-padding w3-margin-top" id="deployments"></div>
+                
+                <!-- Display area for objective cards -->
+                <div class="w3-row-padding w3-margin-top" id="objectives"></div>
+                
+                <!-- Display area for condition cards -->
+                <div class="w3-row-padding w3-margin-top" id="conditions"></div>
+            </div>
             
-            <input class="w3-radio" type="radio" name="clickOption"
-                value="double" onclick="radioClicked(this.value)" >
-            <label>Double</label>
+            <!-- Area for settings -->
+            <div>
+                <p>Eliminate cards with single or double click</p>
+                <input class="w3-radio" type="radio" name="clickOption"
+                    value="single" onclick="radioClicked(this.value)" checked>
+                <label>Single</label>
+                
+                <input class="w3-radio" type="radio" name="clickOption"
+                    value="double" onclick="radioClicked(this.value)" >
+                <label>Double</label>
+            </div>
         </div>
 	</body>
 </html>
