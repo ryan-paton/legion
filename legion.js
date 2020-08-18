@@ -154,7 +154,7 @@ function finishSetup() {
     saveBattleCards(cards);
 }
 
-function cardClicked(cardElement) {
+function clickHandler(cardElement) {
     // Handles a card click
     
     if (setupStatus.ready) {
@@ -163,6 +163,18 @@ function cardClicked(cardElement) {
             changePlayer();
             updateBattleStatus();
         }
+    }
+}
+
+function cardSingleClicked(cardElement) {
+    if (settings.clickOption == SGL_CLICK) {
+        clickHandler(cardElement);
+    }
+}
+
+function cardDoubleClicked(cardElement) {
+    if (settings.clickOption == DBL_CLICK) {
+        clickHandler(cardElement);
     }
 }
 
@@ -218,7 +230,8 @@ function generateCardHTML(card) {
     cardImage.style = IMAGE_STYLE;
     cardImage.src = card.source;
     cardImage.alt = card.name;
-    cardImage.onclick = function(){cardClicked(this)};
+    cardImage.onclick = function(){cardSingleClicked(this)};
+    cardImage.ondblclick = function(){cardDoubleClicked(this)};
     
     cardDiv.appendChild(cardImage);
     card.html = cardDiv;

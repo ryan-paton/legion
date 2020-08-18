@@ -9,6 +9,7 @@
 		
         <script src="saving.js"></script>
 		<script src="legion.js"></script>
+        <script src="settings.js"></script>
 	</head>
 	
 	<body>
@@ -52,5 +53,16 @@
 		<!-- Display area for condition cards -->
 		<div class="w3-row-padding w3-margin-top" id="conditions"></div>
 		
+        <!-- Area for settings -->
+        <div>
+            <p>Eliminate cards with single or double click</p>
+            <input class="w3-radio" type="radio" name="clickOption"
+                value="single" onclick="radioClicked(this.value)" checked>
+            <label>Single</label>
+            
+            <input class="w3-radio" type="radio" name="clickOption"
+                value="double" onclick="radioClicked(this.value)" >
+            <label>Double</label>
+        </div>
 	</body>
 </html>
